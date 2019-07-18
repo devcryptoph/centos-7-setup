@@ -6,9 +6,11 @@
 
 `yum -y update` 
 
+`yum install git ansible`
+
 `reboot`
 
-`yum install git ansible`
+
 
 #### clone repository
 
