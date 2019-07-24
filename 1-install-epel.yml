@@ -1,0 +1,19 @@
+--- 
+- hosts: localhost
+  tasks:
+
+  - name: Install EPEL release package
+    yum:
+     name: epel-release
+     state: present
+     update_cache: true
+
+  - name: Install Addons
+    yum: 
+     name:
+       - ntfs-3g
+       - ntfsprogs
+       - htop
+       - tcping 
+     state: present
+     update_cache: true
