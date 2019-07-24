@@ -32,4 +32,5 @@ sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.micros
 yum install code
 ```
 * google chrome/chromium browser
+
 `yum -y install chromium`
