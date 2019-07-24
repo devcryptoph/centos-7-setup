@@ -1,0 +1,32 @@
+--- 
+- hosts: localhost
+  tasks:
+
+  - name: Configuring LibVirtd TLS  
+    blockinfile:
+       marker: "#{mark} ANSIBLE MANAGE BLOCK " 
+       path: /etc/libvirt/libvirtd.conf
+       backup: yes
+       insertafter: '#(\s+)ovs_timeout'
+       block: |
+         listen_tls = 0
+         listen_tcp = 1
+         tcp_port = "16509"
+         auth_tcp = "none"
+         mdns_adv = 0
+
+  - name: Configuring LibVirtd Sysconfig 
+    lineinfile: 
+       path: /etc/sysconfig/libvirtd 
+       regexp: '^#LIBVIRTD_ARGS'
+       insertafter: '#LIBVIRTD_ARGS="--listen"'
+       line: 'LIBVIRTD_ARGS="--listen"'
+       backup: yes
+       backrefs: yes
+    notify: restart libvirtd
+
+  handlers:
+  - name: restart libvirtd
+    systemd:
+       name: libvirtd
+       state: restarted
