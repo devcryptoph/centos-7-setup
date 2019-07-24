@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks: 
+  - name: Install Cockpit
+    yum:
+      name:
+      - cockpit
+      #- cockpit-storaged
+      - cockpit-machines
+      - cockpit-packagekit
+      - cockpit-pcp
+      state: present
+      update_cache: yes 
+    notify: enable cockpit
+
+  handlers:
+  - name: enable cockpit
+    systemd:
+      name: cockpit.socket
+      state: started 
+      enabled: yes
