@@ -14,6 +14,8 @@ pipeline {
     stage('Stage3') {
       steps {
         input(message: 'Enter Name', id: 'name')
+        sh '''echo "Building Custom VM"
+echo "Done!"'''
       }
     }
   }
