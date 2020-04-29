@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  tasks: 
+  - name: Install KVM-LibVirt
+    yum:
+      name:
+      - qemu-kvm
+      - libvirt
+      - virt-install
+      - bridge-utils
+      - libguestfs-tools
+      - libguestfs-xfs
+      - virt-top
+      state: present
+      update_cache: yes 
+    notify: enable cockpit
+
+  handlers:
+  - name: enable libvirtd service
+    systemd:
+      name: libvirtd.service
+      state: started 
+      enabled: yes
